@@ -1,0 +1,52 @@
+<div class="container mt-4">
+  <h1>Apero League Foudre</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Cat.</th>
+        <th>#</th>
+        <th>Rider</th>
+        <th>Time</th>
+        <th>Gap</th>
+        <th>Primes</th>
+        <th>Age</th>
+        <th>Team</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of jsonData.data">
+        <td>
+          <span class="badge" [ngClass]="{
+            'badge-danger': item.category === 'A',
+            'badge-success': item.category === 'B',
+            'badge-primary': item.category === 'C',
+            'badge-warning': item.category === 'D'
+          }">{{ item.category }}</span>
+        </td>
+        <td>
+          <span [ngClass]="{
+            'gold': item.position_in_cat === 1,
+            'silver': item.position_in_cat === 2,
+            'bronze': item.position_in_cat === 3
+          }">
+            <span *ngIf="item.position_in_cat > 3">{{ item.position_in_cat }}</span>
+            <i *ngIf="item.position_in_cat <= 3" class="fas fa-trophy"></i>
+          </span>
+        </td>
+        <td>
+          <i [ngClass]="'flag flag-' + item.flag.toLowerCase()"></i>
+          <span class="ps-1" [innerHTML]="item.name"></span>
+          <i *ngIf="!item.male" class="fas fa-venus text-success ps-1"></i>
+        </td>
+        <td>
+          {{ getTimeFormatted(item.time[0]) }}
+        </td>
+        <td><span *ngIf="item.gap>0">+{{ getTimeFormatted(item.gap) }}</span></td>
+        <td>{{item.pts}}</td>
+        <td>{{ item.age }}</td>
+        <td [innerHTML]="item.tname"></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
